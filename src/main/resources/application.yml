@@ -1,0 +1,27 @@
+# **********************************************************************************************************************************
+# THESE ARE THE CLAIM INFO BASE CONFIGURATIONS.  IF ANY VARIABLES ARE ENVIRONMENT SPECIFIC, THEN THEY NEED TO BE
+# CONFIGURED IN AN EXISTING ENVIRONMENT SPECIFIC PROFILES OR CONFIGURED INTO A NEWLY CREATED PROFILE.
+# **********************************************************************************************************************************
+spring.profiles: member-info-base-profile
+spring:
+  application:
+    name: MemberInfoService
+server:
+  port: 9102
+  servlet:
+    contextPath: /mtvmembersearch/
+# **********************************************************************************************************************************
+# Zipkin related stuff
+# spring.sleuth.sampler.probability=1   for slueth
+# **********************************************************************************************************************************
+spring.zipkin.baseUrl: http://localhost:9411 
+spring.sleuth.sampler.percentage: 1.0 
+---
+# **********************************************************************************************************************************
+# THESE ARE THE CLAIM INFO RELATED ENVIRONMENT CONFIGURATIONS. THESE ARE ORCHESTRATIONS OF 
+# ALL THE ENVIRONMENT SPECIFIC VARIABLES/VALUES THAT THE CLAIM INFO SERVICE NEEDS.
+# **********************************************************************************************************************************
+spring.profiles: dvlx
+spring.profiles.include: 
+  - member-info-base-profile
+---
