@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="MemberGetMTVMemberInfoReq">
+		<xs:annotation>
+			<xs:documentation>This is used for retrieving Member Benefit Package </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="contractID" type="xs:string" minOccurs="0"/>
+				<xs:element name="memberID" type="xs:string" minOccurs="0"/>
+				<xs:element name="memberLastName" type="xs:string" minOccurs="0"/>
+				<xs:element name="memberFirstName" type="xs:string" minOccurs="0"/>
+				<xs:element name="memberDateOfBirth" type="xs:string" minOccurs="0"/>
+				<xs:element name="subscriberID" type="xs:string" minOccurs="0"/>
+				<xs:element name="patientLastName" type="xs:string" minOccurs="0"/>
+				<xs:element name="patientFirstName" type="xs:string" minOccurs="0"/>
+				<xs:element name="patientDateOfBirth" type="xs:string" minOccurs="0"/>
+				<xs:element ref="Header" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="correlationID" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="correlationID" type="xs:string"/>
+</xs:schema>

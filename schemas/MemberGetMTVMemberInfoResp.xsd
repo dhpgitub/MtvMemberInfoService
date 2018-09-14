@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="MemberGetMTVMemberInfoResp">
+		<xs:annotation>
+			<xs:documentation>This should return the Member Benefit Package </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="Header" minOccurs="0"/>
+							<xs:element name="Member" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="contractID" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberID" type="xs:string" minOccurs="0"/>
+										<xs:element name="personID" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberLastName" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberFirstName" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberMiddleName" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberTitle" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberSuffix" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberDateOfBirth" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberSexCode" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberClassCode" type="xs:string" minOccurs="0"/>
+										<xs:element name="memberNetworkID" type="xs:string" minOccurs="0"/>
+										<xs:element name="benefitPackageType" type="xs:string" minOccurs="0"/>
+										<xs:element name="benefitPackageID" type="xs:string" minOccurs="0"/>
+										<xs:element name="multipleBenefitPackageFlag" type="xs:string" minOccurs="0"/>
+										<xs:element name="recordStatus" type="xs:string" minOccurs="0"/>
+										<xs:element name="remarksIndicator" type="xs:string" minOccurs="0"/>
+										<xs:element name="coverageContractHolderFlag" type="xs:string" minOccurs="0"/>
+										<xs:element name="voidFlag" type="xs:string" minOccurs="0"/>
+										<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="endDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="typeCode" type="xs:string" minOccurs="0"/>
+										<xs:element name="lineOfBusiness" type="xs:string" minOccurs="0"/>
+										<xs:element name="businessLevel4ID" type="xs:string" minOccurs="0"/>
+										<xs:element name="businessLevel5ID" type="xs:string" minOccurs="0"/>
+										<xs:element name="businessLevel6ID" type="xs:string" minOccurs="0"/>
+										<xs:element name="businessLevel7ID" type="xs:string" minOccurs="0"/>
+										<xs:element name="employerGroupLevelID" type="xs:string" minOccurs="0"/>
+										<xs:element name="crossReferenceFlag" type="xs:string" minOccurs="0"/>
+										<xs:element name="statusCode" type="xs:string" minOccurs="0"/>
+										<xs:element name="providerID" type="xs:string" minOccurs="0"/>
+										<xs:element name="effectiveDateMPNA" type="xs:string" minOccurs="0"/>
+										<xs:element name="endDateMPNA" type="xs:string" minOccurs="0"/>
+										<xs:element name="providerName" type="xs:string" minOccurs="0"/>
+										<xs:element name="zipCode" type="xs:string" minOccurs="0"/>
+										<xs:element name="count" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="Error" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Error">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="errorCode" minOccurs="0"/>
+				<xs:element ref="severityCode" minOccurs="0"/>
+				<xs:element ref="contextString" minOccurs="0"/>
+				<xs:element ref="returnCode" minOccurs="0"/>
+				<xs:element ref="reasonCode" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="errorCode" type="xs:string"/>
+	<xs:element name="severityCode" type="xs:string"/>
+	<xs:element name="contextString" type="xs:string"/>
+	<xs:element name="returnCode" type="xs:string"/>
+	<xs:element name="reasonCode" type="xs:string"/>
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="correlationID" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="correlationID" type="xs:string"/>
+</xs:schema>
