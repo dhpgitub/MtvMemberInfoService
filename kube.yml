@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+ name: member-info-service
+spec:
+ replicas: 1
+ strategy:
+   rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 1
+ minReadySeconds: 5
+ template:
+   metadata:
+     labels:
+       app: member-info-service
+   spec:
+     containers:
+     - name: member-info-service
+       image: dhpcontainreg.azurecr.io/dhpcore-utility/javamemberinfoservice:v2.2
+       ports:
+       - containerPort: 9102
+       resources:
+         requests:
+           cpu: 250m
+         limits:
+           cpu: 500m
+       env:
+       - name: SPRING_PROFILES_ACTIVE
+         value: dvlx
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: member-info-service
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 9102
+ selector:
+   app: member-info-service
