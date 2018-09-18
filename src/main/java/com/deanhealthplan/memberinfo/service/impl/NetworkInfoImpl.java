@@ -3,9 +3,7 @@ package com.deanhealthplan.memberinfo.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.annotation.NewSpan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.ca.gen85.csu.exception.CSUException;
@@ -21,12 +19,6 @@ public class NetworkInfoImpl {
 	
 private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 	
-//	@Value("${MTVUser}") 
-//	String mtvUser;
-//	@Value("${MTVPassword}") 
-//	String mtvPass;
-//	@Value("${MTVURL}")
-//	String mtvUrl;
 	@Autowired
 	MtvNetworkLookup mtvNetworkLookup;
 	@Autowired
@@ -37,8 +29,8 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 		
 		Pmbr1dl4ListMemberNetworksTImport networkInfoImport = new Pmbr1dl4ListMemberNetworksTImport();
 		
-		//networkInfoImport.getImportImbr1Interface().setRequestorId(mtvUser);
-		//networkInfoImport.getImportImbr1Interface().setRequestorPassword(mtvPass);
+		//networkInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMTVUser());
+		//networkInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMTVPassword());
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setContractId3(contractId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setMemberId(memberId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setTEffectiveDate(effDate);
@@ -47,7 +39,7 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 		Pmbr1dl4ListMemberNetworksT networkInfo = new Pmbr1dl4ListMemberNetworksT();
 		Pmbr1dl4ListMemberNetworksTExport networkInfoExport = new Pmbr1dl4ListMemberNetworksTExport();
 		try {
-			//networkInfoExport = networkInfo.execute(networkInfoImport, mtvUrl);
+			//networkInfoExport = networkInfo.execute(networkInfoImport, mtvprops.getMTVURL());
 			networkInfoExport = mtvNetworkLookup.mtvNetworkSearch(contractId);
 			//System.out.println(networkInfoExport.getExportImbr1Interface().getReturnCode());
 			//System.out.println(networkInfoExport.getExportImbr1Interface().getContextString());
