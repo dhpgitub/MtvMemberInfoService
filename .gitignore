@@ -4,8 +4,7 @@
 /target/
 !gradle/wrapper/gradle-wrapper.jar
 /bin/
-/src/main/resources/application.yml
-/src/main/resources/application_default.properties
+/src/main/resources/bootstrap.yml
 
 ### STS ###
 .apt_generated

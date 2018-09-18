@@ -6,14 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.ca.gen85.csu.exception.CSUException;
+import com.deanhealthplan.memberinfo.config.MTVProperties;
 import com.deanhealthplan.memberinfo.mock.MtvNetworkLookup;
 import com.eds.metavance.membership.Pmbr1dl4ListMemberNetworksT;
 import com.eds.metavance.membership.Pmbr1dl4ListMemberNetworksTExport;
 import com.eds.metavance.membership.Pmbr1dl4ListMemberNetworksTImport;
 
-@Component
+@Service
 public class NetworkInfoImpl {
 
 	
@@ -27,6 +29,8 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 //	String mtvUrl;
 	@Autowired
 	MtvNetworkLookup mtvNetworkLookup;
+	@Autowired
+    private MTVProperties mtvprops;
 	
 	@NewSpan("MtvNetworkLookupApiCall")
 	public Pmbr1dl4ListMemberNetworksTExport pmbr1dl4ListMemberNetworksT(String contractId, String memberId, String effDate, String endDate) throws IllegalArgumentException, CSUException, Exception  {

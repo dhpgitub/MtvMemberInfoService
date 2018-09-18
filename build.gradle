@@ -9,6 +9,7 @@ buildscript {
 	repositories {
 		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-public/'}
 		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-snapshots/'}
+		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-releases/'}
 	}
 	dependencies {
 		//classpath group: 'com.deanhealthplan.core', name: 'core-cd-automation-all', version:'1.1.0-SNAPSHOT'
@@ -21,7 +22,8 @@ buildscript {
 }
 plugins {
 	id 'org.hidetake.ssh' version '2.5.1'
-	//id 'com.gorylenko.gradle-git-properties' version '1.4.21'
+	id 'com.gorylenko.gradle-git-properties' version '1.4.21'
+	id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
 }
 
 apply plugin: 'java'
@@ -30,6 +32,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: "com.github.ManifestClasspath"
 
 //####################### XJC - JDK 1.7/1.8 ####################
 apply plugin: 'com.github.jacobono.jaxb'
@@ -67,6 +70,7 @@ bootRun {
 
 repositories {
 	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-public/'}
+	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-snapshots/'}
 	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-releases/'}
 }
 
@@ -77,16 +81,11 @@ configurations {
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-	// compile("org.springframework.boot:spring-boot-starter-log4j2")
 	// compile('org.springframework.boot:spring-boot-starter-cache')
 	compile group: 'org.springframework', name: 'spring-context-support', version: '4.1.8.RELEASE'
-	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile("org.springframework:spring-tx")
-	//compile('org.springframework.security:spring-security-ldap')
-	//compile("org.springframework.ldap:spring-ldap-core")
 	compile("com.fasterxml.jackson.core:jackson-databind:2.9.4")
 	compile ("org.apache.httpcomponents:httpclient")
-	//compile ("org.apache.httpcomponents:httpclient:4.5.3")
 	// spring actuator
 	compile ("org.springframework.boot:spring-boot-starter-actuator")
 	
@@ -95,6 +94,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-zipkin
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: '2.0.1.RELEASE'
 	
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-consul-all
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-consul-all', version: '2.0.1.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-consul-config
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-consul-config', version: '2.0.1.RELEASE'
+		
 	// https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-core
 	compile group: 'org.springframework.ws', name: 'spring-ws-core'
 	
@@ -105,8 +109,8 @@ dependencies {
 	//compile group: 'com.google.code.gson', name: 'gson', version:'2.6.2'
 
 	//compile group: 'org.jasypt', name: 'jasypt', version:'1.9.2'
-	compile group: 'org.jasypt', name: 'jasypt-spring31', version:'1.9.2'
-	compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version:'1.18'
+	//compile group: 'org.jasypt', name: 'jasypt-spring31', version:'1.9.2'
+	//compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version:'1.18'
 
 
 	// https://mvnrepository.com/artifact/org.apache.poi/poi
@@ -122,9 +126,6 @@ dependencies {
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
-
-	// https://mvnrepository.com/artifact/javax.mail/mail
-	// compile group: 'javax.mail', name: 'mail', version: '1.4.7'
 
 	//compile group: 'com.deanhealthplan.core', name: 'core-cd-automation-all', version:'1.1.0-SNAPSHOT'
 	
