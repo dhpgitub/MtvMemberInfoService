@@ -21,11 +21,11 @@ info:
   app:
     name: Member Info MicroService
     description: process Calling MTV API
-endpoints:
-  health:
-    sensitive: false
-    show-details: always
 management:
+  endpoint:
+    health:
+      sensitive: false
+      show-details: always
   info:
     git:
       mode: FULL
