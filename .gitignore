@@ -5,6 +5,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 /bin/
 /src/main/resources/bootstrap.yml
+build.properties
 
 ### STS ###
 .apt_generated
