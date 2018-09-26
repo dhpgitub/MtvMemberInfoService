@@ -4,7 +4,7 @@
 
 buildscript {
 	ext {
-		springBootVersion = '2.0.0.RELEASE' 
+		springBootVersion = '2.0.5.RELEASE' 
 	}
 	repositories {
 		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-public/'}
@@ -93,11 +93,12 @@ dependencies {
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.0.1.RELEASE'
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-zipkin
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: '2.0.1.RELEASE'
-	
-	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-consul-all
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-consul-all', version: '2.0.1.RELEASE'
-	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-consul-config
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-consul-config', version: '2.0.1.RELEASE'
+
+	// https://mvnrepository.com/artifact/io.fabric8/spring-cloud-kubernetes-core
+	// compile group: 'io.fabric8', name: 'spring-cloud-kubernetes-core', version: '0.1.6'
+
+	//compile group: 'org.jasypt', name: 'jasypt-spring31', version:'1.9.2'
+	//compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version:'1.18'	
 		
 	// https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-core
 	compile group: 'org.springframework.ws', name: 'spring-ws-core'

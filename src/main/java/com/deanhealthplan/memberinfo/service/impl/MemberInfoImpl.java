@@ -7,7 +7,7 @@ import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.stereotype.Service;
 
 import com.ca.gen85.csu.exception.CSUException;
-import com.deanhealthplan.memberinfo.config.MTVProperties;
+import com.deanhealthplan.memberinfo.config.MemberInfoProperties;
 import com.deanhealthplan.memberinfo.mock.MtvMemberSearch;
 import com.deanhealthplan.memberinfo.service.MemberInfo;
 import com.eds.metavance.membership.Pmbr1av3MemberSearchT;
@@ -23,22 +23,21 @@ public class MemberInfoImpl implements MemberInfo {
 	@Autowired
 	MtvMemberSearch mtvMemberSearch;
 	@Autowired
-    private MTVProperties mtvprops;
+    private MemberInfoProperties mtvprops;
 	
 	@NewSpan("MtvMemberInfoApiCall")
 	public Pmbr1av3MemberSearchTExport pmbr1av3MemberSearch_T(Pmbr1av3MemberSearchTImport memInfoImport) throws IllegalArgumentException, CSUException, Exception  {
-		
-		//memInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMTVUser());
-		//memInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMTVPassword());
-		log.info("MTVUser: " + mtvprops.getMTVUser());
-		log.info("MTVURL: " + mtvprops.getMTVURL());
+		//log.info("MTVUser: |" + mtvprops.getMtvUser()+"|");
+		//log.info("MTVPassword: |" + mtvprops.getMtvPassword()+"|");
+		//log.info("MTVURL: |" + mtvprops.getMtvUrl()+"|");
+		memInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMtvUser());
+		memInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMtvPassword());
+
 		Pmbr1av3MemberSearchT memInfo = new Pmbr1av3MemberSearchT();
 		Pmbr1av3MemberSearchTExport memInfoExport = new Pmbr1av3MemberSearchTExport();
 		try {
-			//memInfoExport = memInfo.execute(memInfoImport, mtvprops.getMTVURL());
+			//memInfoExport = memInfo.execute(memInfoImport, mtvprops.getMtvUrl().trim());
 			memInfoExport = mtvMemberSearch.mockMemberSearch(memInfoImport.getImportQualifyImbr1Member().getContractId3());
-			//System.out.println(memInfoExport.getExportImbr1Interface().getReturnCode());
-			//System.out.println(memInfoExport.getExportImbr1Interface().getContextString());
 		} catch (IllegalArgumentException e) {
 			log.error("IllegalArgumentException in pmbr1av3MemberSearch_T of MemberInfoImpl: ", e);
 			throw e;
@@ -49,7 +48,6 @@ public class MemberInfoImpl implements MemberInfo {
 			log.error("Exception in pmbr1av3MemberSearch_T of MemberInfoImpl: ", e);
 			throw e;
 		}
-		log.info("Successfully called MTV API Member Search, returning response");
 		return memInfoExport;
 		
 	}

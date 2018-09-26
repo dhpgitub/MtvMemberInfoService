@@ -15,32 +15,32 @@
 //import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 //
 //@Configuration
-////@EnableEncryptableProperties
-////@PropertySources(value={
-////		@PropertySource(value="application_${environment:default}.properties")
-////})
+//@EnableEncryptableProperties
+//@PropertySources(value={
+//		@PropertySource(value="application_${environment:default}.properties")
+//})
 //public class PropertiesConfig {
 //	
-////    @Bean(name="environmentVariablesConfiguration")
-////    public EnvironmentStringPBEConfig environmentVariablesConfiguration() {
-////        final EnvironmentStringPBEConfig configurer = new EnvironmentStringPBEConfig();
-////        configurer.setAlgorithm("PBEWithMD5AndDES");//PBEWithMD5AndTripleDES
-////        configurer.setPassword("dhp-event-viewer-254682448244583a");
-////        return configurer;
-////    }
+//    @Bean(name="environmentVariablesConfiguration")
+//    public EnvironmentStringPBEConfig environmentVariablesConfiguration() {
+//        final EnvironmentStringPBEConfig configurer = new EnvironmentStringPBEConfig();
+//        configurer.setAlgorithm("PBEWithMD5AndDES");//PBEWithMD5AndTripleDES
+//        configurer.setPassword("dhp-event-viewer-254682448244583a");
+//        return configurer;
+//    }
 //    
-////    @Bean(name="stringEncryptor")    
-////    public StringEncryptor stringEncryptor() {
-////        final StandardPBEStringEncryptor configurer = new StandardPBEStringEncryptor();
-////        configurer.setConfig(environmentVariablesConfiguration());
-////        return configurer;
-////    }
+//    @Bean(name="stringEncryptor")    
+//    public StringEncryptor stringEncryptor() {
+//        final StandardPBEStringEncryptor configurer = new StandardPBEStringEncryptor();
+//        configurer.setConfig(environmentVariablesConfiguration());
+//        return configurer;
+//    }
 //    
-////    @Bean(name="propertySourcesPlaceholderConfigurer")   
-////    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-////    	PropertySourcesPlaceholderConfigurer psp = new EncryptablePropertySourcesPlaceholderConfigurer(stringEncryptor());
-////    	return psp;
-////    }
+//    @Bean(name="propertySourcesPlaceholderConfigurer")   
+//    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//    	PropertySourcesPlaceholderConfigurer psp = new EncryptablePropertySourcesPlaceholderConfigurer(stringEncryptor());
+//    	return psp;
+//    }
 //
 ////	public static void main(String[] args) {
 ////		

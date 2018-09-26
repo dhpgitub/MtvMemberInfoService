@@ -162,7 +162,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 			memInfoImport.getImportQualifyImbr1Member().setContractId3(memberGetMtvMemberInfoReq.getContractID());
 			memInfoImport.getImportQualifyImbr1Member().setTBirthDate(memberGetMtvMemberInfoReq.getMemberDateOfBirth());
 			Pmbr1av3MemberSearchTExport memInfoExport = memberInfo.pmbr1av3MemberSearch_T(memInfoImport);
-
+			log.info(correlationId + " Successfully called MTV API Member Search. parsing response");
 			if (memInfoExport.getExportImbr1Interface().getReturnCode() != 1) {
 				log.error(correlationId + " - Error: RESP-005 - MTV API call for Member Search resulted in an error.");
 				return buildMtvMemberResponseError(correlationId, memInfoExport, "RESP-005");
@@ -209,7 +209,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 			memInfoImport.getImportQualifyImbr1Member().setCompleteFirstName(memberGetMtvMemberInfoReq.getMemberFirstName());
 			memInfoImport.getImportQualifyImbr1Member().setCompleteLastName(memberGetMtvMemberInfoReq.getMemberLastName());
 			Pmbr1av3MemberSearchTExport memInfoExport = memberInfo.pmbr1av3MemberSearch_T(memInfoImport);
-			
+			log.info(correlationId + " Successfully called MTV API Member Search. parsing response");
 			if (memInfoExport.getExportImbr1Interface().getReturnCode() != 1) {
 				log.error(correlationId + " - Error: RESP-004 - MTV API call for Member Search resulted in an error.");
 				return buildMtvMemberResponseError(correlationId, memInfoExport, "RESP-004");
@@ -258,7 +258,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 			memInfoImport.getImportQualifyImbr1Member().setCompleteLastName(memberGetMtvMemberInfoReq.getMemberLastName());
 			memInfoImport.getImportQualifyImbr1Member().setTBirthDate(memberGetMtvMemberInfoReq.getMemberDateOfBirth());
 			Pmbr1av3MemberSearchTExport memInfoExport = memberInfo.pmbr1av3MemberSearch_T(memInfoImport);
-			
+			log.info(correlationId + " Successfully called MTV API Member Search. parsing response");
 			if (memInfoExport.getExportImbr1Interface().getReturnCode() != 1) {
 				log.error(correlationId + " - Error: RESP-003 - MTV API call for Member Search resulted in an error.");
 				return buildMtvMemberResponseError(correlationId, memInfoExport, "RESP-003");
@@ -308,7 +308,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 			memInfoImport.getImportQualifyImbr1Member().setCompleteLastName(memberGetMtvMemberInfoReq.getMemberLastName());
 			memInfoImport.getImportQualifyImbr1Member().setTBirthDate(memberGetMtvMemberInfoReq.getMemberDateOfBirth());
 			Pmbr1av3MemberSearchTExport memInfoExport = memberInfo.pmbr1av3MemberSearch_T(memInfoImport);
-			
+			log.info(correlationId + " Successfully called MTV API Member Search. parsing response");
 			if (memInfoExport.getExportImbr1Interface().getReturnCode() != 1) {
 				log.error(correlationId + " - Error: RESP-002 - MTV API call for Member Search resulted in an error.");
 				return buildMtvMemberResponseError(correlationId, memInfoExport, "RESP-002");
@@ -357,7 +357,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 			memInfoImport.getImportQualifyImbr1Member().setContractId3(memberGetMtvMemberInfoReq.getContractID());
 			memInfoImport.getImportQualifyImbr1Member().setTBirthDate(memberGetMtvMemberInfoReq.getMemberDateOfBirth());
 			Pmbr1av3MemberSearchTExport memInfoExport = memberInfo.pmbr1av3MemberSearch_T(memInfoImport);
-			
+			log.info(correlationId + " Successfully called MTV API Member Search. parsing response");
 			if (memInfoExport.getExportImbr1Interface().getReturnCode() != 1) {
 				log.error(correlationId +" - Error: RESP-001 - MTV API call for Member Search resulted in an error.");
 				return buildMtvMemberResponseError(correlationId, memInfoExport, "RESP-001");
@@ -500,6 +500,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 	private String getMemberNetwork (String correlationId, ExportMemberGroupRow memberRow) {
 		log.info(correlationId + " - Starting Network Lookup");
 		Pmbr1dl4ListMemberNetworksTExport networkExport = searchMemberNetwork(memberRow.getExportGImbr1Member().getContractId3(), memberRow.getExportGImbr1Member().getMemberId(), memberRow.getExportGImbr1MemberEligibility().getTEffectiveDate(), memberRow.getExportGImbr1MemberEligibility().getTEndDate());
+		log.info(correlationId + " Successfully called MTV API Member Network Lookup, parsing response");
 		String networkId = "Error in Network Lookup"; // default value
 		if (networkExport == null) {
 			// default value if Lookup fails

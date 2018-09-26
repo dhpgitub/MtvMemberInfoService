@@ -7,7 +7,7 @@ import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.stereotype.Service;
 
 import com.ca.gen85.csu.exception.CSUException;
-import com.deanhealthplan.memberinfo.config.MTVProperties;
+import com.deanhealthplan.memberinfo.config.MemberInfoProperties;
 import com.deanhealthplan.memberinfo.mock.MtvNetworkLookup;
 import com.eds.metavance.membership.Pmbr1dl4ListMemberNetworksT;
 import com.eds.metavance.membership.Pmbr1dl4ListMemberNetworksTExport;
@@ -22,15 +22,15 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 	@Autowired
 	MtvNetworkLookup mtvNetworkLookup;
 	@Autowired
-    private MTVProperties mtvprops;
+    private MemberInfoProperties mtvprops;
 	
 	@NewSpan("MtvNetworkLookupApiCall")
 	public Pmbr1dl4ListMemberNetworksTExport pmbr1dl4ListMemberNetworksT(String contractId, String memberId, String effDate, String endDate) throws IllegalArgumentException, CSUException, Exception  {
 		
 		Pmbr1dl4ListMemberNetworksTImport networkInfoImport = new Pmbr1dl4ListMemberNetworksTImport();
 		
-		//networkInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMTVUser());
-		//networkInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMTVPassword());
+		networkInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMtvUser());
+		networkInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMtvPassword());
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setContractId3(contractId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setMemberId(memberId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setTEffectiveDate(effDate);
@@ -41,8 +41,6 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 		try {
 			//networkInfoExport = networkInfo.execute(networkInfoImport, mtvprops.getMTVURL());
 			networkInfoExport = mtvNetworkLookup.mtvNetworkSearch(contractId);
-			//System.out.println(networkInfoExport.getExportImbr1Interface().getReturnCode());
-			//System.out.println(networkInfoExport.getExportImbr1Interface().getContextString());
 		} catch (IllegalArgumentException e) {
 			log.error("IllegalArgumentException in pmbr1dl4ListMemberNetworksT of NetworkInfoImpl: ", e);
 			throw e;
@@ -53,7 +51,6 @@ private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
 			log.error("Exception in pmbr1dl4ListMemberNetworksT of NetworkInfoImpl: ", e);
 			throw e;
 		}
-		log.info("Successfully called MTV API Member Network Lookup, returning response");
 		return networkInfoExport;
 		
 	}

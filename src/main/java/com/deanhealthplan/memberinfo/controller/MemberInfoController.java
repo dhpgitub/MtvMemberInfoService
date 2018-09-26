@@ -27,7 +27,6 @@ public class MemberInfoController {
 	MemberSearchOrchestrationImpl memberSearchOrchImpl;
 	
 	@SwaggerVisible
-////@Secured(value = {"ROLE_APP_CLAIM_INFO"}) //MediaType.APPLICATION_JSON_VALUE,
 	@RequestMapping(path="/smbr1av3_MemberSearchT", method=RequestMethod.POST,
 				produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},
 				consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})

@@ -1,5 +1,7 @@
 package com.deanhealthplan.memberinfo.config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
@@ -11,6 +13,8 @@ import com.eds.metavance.membership.Pmbr1av3MemberSearchTImport;
 @Component
 public class MemberInfoHealthCheck extends AbstractHealthIndicator {
 
+	private static final Logger log = LogManager.getLogger(MemberInfoHealthCheck.class);
+	
 	@Autowired 
 	private MemberInfoImpl memberInfo;
 
@@ -18,6 +22,7 @@ public class MemberInfoHealthCheck extends AbstractHealthIndicator {
 	protected void doHealthCheck(Builder builder) throws Exception {
 		try {
 			// call MemberInfo, should return successful with no member found 
+			//log.info("MemberInfo Health Check");
 			Pmbr1av3MemberSearchTImport memInfoImport = new Pmbr1av3MemberSearchTImport();
 			memInfoImport.getImportImbr1Interface().setSearchType("I");
 			memInfoImport.getImportImbr1Interface().setPartialSearchFlag("F");

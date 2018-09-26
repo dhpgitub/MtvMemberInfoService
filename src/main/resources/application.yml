@@ -6,14 +6,17 @@ spring:
     name: MemberInfoService
 server:
   port: 9102
-  servlet:
-    contextPath: /mtvmembersearch/
+#  servlet:
+#    contextPath: /mtvmembersearch/
 # **********************************************************************************************************************************
 # Zipkin related stuff
 # spring.sleuth.sampler.probability=1   for slueth
+# sleuth skip pattern.  This is being enhance in version 2.1, should be able to remove then
 # **********************************************************************************************************************************
-spring.zipkin.baseUrl: http://default-servicemesh-zipkin-http/
+spring.zipkin.discoveryClientEnabled: true
+spring.zipkin.baseUrl: http://servicemesh-zipkin:9411
 spring.sleuth.sampler.percentage: 1.0 
+spring.sleuth.web.skipPattern: /api-docs.*|/autoconfig|/configprops|/dump|/health|/info|/metrics.*|/mappings|/trace|/swagger.*|/swagger-ui.*|.*\\.png|.*\\.css|.*\\.js|.*\\.html|/favicon.ico|/hystrix.stream|/application/.*|/actuator.*|/cloudfoundryapplication|/webjars
 # **********************************************************************************************************************************
 # THIS IS FOR THE /actuator/info ENDPOINT.  ADD ANY INFORMATION HERE TO BE PRESENTED.
 # **********************************************************************************************************************************  
@@ -29,3 +32,10 @@ management:
   info:
     git:
       mode: FULL
+# ************************************************************************************************************************************
+# mtv variables from the system env
+# ************************************************************************************************************************************
+mtv:
+  mtvUser: ${MTVUSER}
+  mtvPassword: ${MTVPASSWORD}
+  mtvUrl: ${MTVURL}
