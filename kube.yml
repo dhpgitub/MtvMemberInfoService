@@ -1,40 +1,68 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
- name: member-info-service
+  name: member-info-service
+  labels:
+    app: member-info-service
+  namespace: default
 spec:
- replicas: 1
- strategy:
-   rollingUpdate:
-     maxSurge: 1
-     maxUnavailable: 1
- minReadySeconds: 5
- template:
-   metadata:
-     labels:
-       app: member-info-service
-   spec:
-     containers:
-     - name: member-info-service
-       image: dhpcontainreg.azurecr.io/dhpcore-utility/javamemberinfoservice:v2.2
-       ports:
-       - containerPort: 9102
-       resources:
-         requests:
-           cpu: 250m
-         limits:
-           cpu: 500m
-       env:
-       - name: SPRING_PROFILES_ACTIVE
-         value: dvlx
+  selector:
+    matchLabels:
+      app: member-info-service
+  template:
+    metadata:
+      labels:
+        app: member-info-service
+    spec:
+      containers:
+      - name: member-info-service
+        image: dhpcontainreg.azurecr.io/core-mtv/memberinfoservice:v3.0
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9102
+            name: mtvmemberinfo
+        volumeMounts:
+        - name: "member-info-config"
+          readOnly: true
+          mountPath: "/member-info-config"
+        env:
+        - name: MTVUSER
+          valueFrom:
+            secretKeyRef:
+              name: member-info-config
+              key: mtv-user
+        - name: MTVPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: member-info-config
+              key: mtv-password
+        - name: MTVURL
+          valueFrom:
+            secretKeyRef:
+              name: member-info-config
+              key: mtv-url
+      volumes:
+      - name: member-info-config
+        secret:
+          secretName: member-info-config
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
- name: member-info-service
+  name: member-info-service
+  labels:
+    app: member-info-service
+    registerWithMesh: "true"
+    appLanguage: "java"
+    framework: "spring_boot"
+    frameworkVersion: "2.0.5"
 spec:
- type: LoadBalancer
- ports:
- - port: 9102
- selector:
-   app: member-info-service
+  type: NodePort
+  ports:
+  - name: mtvmemberinfo
+    port: 9102
+    targetPort: "mtvmemberinfo"
+  selector:
+    app: member-info-service
+
