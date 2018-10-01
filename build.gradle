@@ -7,9 +7,9 @@ buildscript {
 		springBootVersion = '2.0.0.RELEASE' 
 	}
 	repositories {
-		maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-public/'}
-		maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-snapshots/'}
-		maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-releases/'}
+		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-public/'}
+		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-snapshots/'}
+		maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-releases/'}
 	}
 	dependencies {
 		//classpath group: 'com.deanhealthplan.core', name: 'core-cd-automation-all', version:'1.1.0-SNAPSHOT'
@@ -67,9 +67,9 @@ bootRun {
 
 
 repositories {
-	maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-public/'}
-	maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-snapshots/'}
-	maven {url 'https://dhpxnexpoc1.deancare.com:8443/repository/maven-releases/'}
+	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-public/'}
+	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-snapshots/'}
+	maven {url 'https://nexus.dhp.ad.deanhealth.com:8443/repository/maven-releases/'}
 }
 
 configurations {
