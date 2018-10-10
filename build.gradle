@@ -20,6 +20,7 @@ buildscript {
 		
 	}
 }
+
 plugins {
 	id 'org.hidetake.ssh' version '2.5.1'
 	id 'com.gorylenko.gradle-git-properties' version '1.4.21'
@@ -37,6 +38,10 @@ apply plugin: "com.github.ManifestClasspath"
 //####################### XJC - JDK 1.7/1.8 ####################
 apply plugin: 'com.github.jacobono.jaxb'
 //######################
+
+ext {
+	springCloudVersion = 'Finchley.RELEASE'
+}
 
 description = """This will be used by 270271 application to contact the MTV API's."""
 
@@ -81,49 +86,21 @@ configurations {
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-	// compile('org.springframework.boot:spring-boot-starter-cache')
-	compile group: 'org.springframework', name: 'spring-context-support', version: '4.1.8.RELEASE'
-	compile("org.springframework:spring-tx")
 	compile("com.fasterxml.jackson.core:jackson-databind:2.9.4")
-	compile ("org.apache.httpcomponents:httpclient")
 	// spring actuator
 	compile ("org.springframework.boot:spring-boot-starter-actuator")
 	
-	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-sleuth
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.0.1.RELEASE'
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-zipkin
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: '2.0.1.RELEASE'
-
-	// https://mvnrepository.com/artifact/io.fabric8/spring-cloud-kubernetes-core
-	// compile group: 'io.fabric8', name: 'spring-cloud-kubernetes-core', version: '0.1.6'
-
+    compile("org.springframework.cloud:spring-cloud-starter-zipkin")
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-vault-config
+	compile("org.springframework.cloud:spring-cloud-starter-vault-config")
 	//compile group: 'org.jasypt', name: 'jasypt-spring31', version:'1.9.2'
 	//compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version:'1.18'	
-		
-	// https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-core
-	compile group: 'org.springframework.ws', name: 'spring-ws-core'
-	
-	// https://mvnrepository.com/artifact/com.google.guava/guava
-	compile group: 'com.google.guava', name: 'guava', version: '19.0-rc2'
-
-	compile group: 'commons-io', name: 'commons-io', version: '2.5'
-	//compile group: 'com.google.code.gson', name: 'gson', version:'2.6.2'
-
-	// https://mvnrepository.com/artifact/org.apache.poi/poi
-	//compile group: 'org.apache.poi', name: 'poi', version: '3.15'
-	// https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad
-	//compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '3.15'
-	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-	//compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
-	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
-	// compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.3'
 
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
-
-	//compile group: 'com.deanhealthplan.core', name: 'core-cd-automation-all', version:'1.1.0-SNAPSHOT'
 
 	//jaxb ("com.sun.xml.bind:jaxb-xjc:2.2.7-b41")
 	jaxb 'com.sun.xml.bind:jaxb-impl:2.2.7-b41'
@@ -135,12 +112,21 @@ dependencies {
 	compile group: 'com.metavance.membership', name: 'smbr1av3', version: '2.10.13'
 	compile group: 'com.metavance.membership', name: 'smbr1dl4', version: '2.6.0'
 	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
 	// for JSON logging
 	runtime('net.logstash.logback:logstash-logback-encoder:5.0') {
 		exclude group: "ch.qos.logback", module: "logback-core"
 	}
 
 }
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
 
 eclipse {
 	project {
@@ -200,26 +186,6 @@ task encPass(dependsOn: classes, type: JavaExec){
 	standardInput = System.in
 }
 tasks['eclipse'].dependsOn prepMessage
-
-
-task DEVProfile {
-       doFirst {
-              bootRun.systemProperty 'spring.profiles.active', 'dvlx'
-       }
-}
-
-task UATXProfile {
-       doFirst {
-              bootRun.systemProperty 'spring.profiles.active', 'uatx'
-       }
-}
-
-task PRODProfile {
-       doFirst {
-              bootRun.systemProperty 'spring.profiles.active', 'prod'
-       }
-}
-
 
 def targetEnvi = null
 

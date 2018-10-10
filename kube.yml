@@ -4,7 +4,6 @@ metadata:
   name: member-info-service
   labels:
     app: member-info-service
-  namespace: default
 spec:
   selector:
     matchLabels:
@@ -19,32 +18,10 @@ spec:
         image: dhpcontainreg.azurecr.io/core-mtv/memberinfoservice:v3.0
         imagePullPolicy: Always
         ports:
-          - containerPort: 9102
-            name: mtvmemberinfo
-        volumeMounts:
-        - name: "member-info-config"
-          readOnly: true
-          mountPath: "/member-info-config"
-        env:
-        - name: MTVUSER
-          valueFrom:
-            secretKeyRef:
-              name: member-info-config
-              key: mtv-user
-        - name: MTVPASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: member-info-config
-              key: mtv-password
-        - name: MTVURL
-          valueFrom:
-            secretKeyRef:
-              name: member-info-config
-              key: mtv-url
-      volumes:
-      - name: member-info-config
-        secret:
-          secretName: member-info-config
+        - containerPort: 8080
+          name: mtvmemberinfo
+        securityContext:
+          runAsUser: 1000
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -60,8 +37,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - name: mtvmemberinfo
-    port: 9102
+  - name: member-info-service
+    port: 8080
     targetPort: "mtvmemberinfo"
   selector:
     app: member-info-service

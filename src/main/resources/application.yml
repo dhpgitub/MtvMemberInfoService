@@ -4,10 +4,8 @@
 spring:
   application:
     name: MemberInfoService
-server:
-  port: 9102
-#  servlet:
-#    contextPath: /mtvmembersearch/
+#server:
+#  port: 8081
 # **********************************************************************************************************************************
 # Zipkin related stuff
 # spring.sleuth.sampler.probability=1   for slueth
@@ -32,10 +30,3 @@ management:
   info:
     git:
       mode: FULL
-# ************************************************************************************************************************************
-# mtv variables from the system env
-# ************************************************************************************************************************************
-mtv:
-  mtvUser: ${MTVUSER}
-  mtvPassword: ${MTVPASSWORD}
-  mtvUrl: ${MTVURL}

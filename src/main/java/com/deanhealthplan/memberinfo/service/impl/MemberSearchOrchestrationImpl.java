@@ -152,7 +152,7 @@ public class MemberSearchOrchestrationImpl implements MemberSearchOrchestration 
 	 * Search by MemberID
 	 * @throws Exception 
 	 */
-	private MemberGetMTVMemberInfoResp searchByMemberId(String correlationId, MemberGetMTVMemberInfoReq memberGetMtvMemberInfoReq) {
+	MemberGetMTVMemberInfoResp searchByMemberId(String correlationId, MemberGetMTVMemberInfoReq memberGetMtvMemberInfoReq) {
 		try {
 			log.info(correlationId + " - Have MemberId, ContractId, MemberDOB.  Attempting to call MTV API with this search criteria 1.");
 			Pmbr1av3MemberSearchTImport memInfoImport = new Pmbr1av3MemberSearchTImport();

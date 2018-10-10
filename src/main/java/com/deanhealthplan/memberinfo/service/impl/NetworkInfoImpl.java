@@ -3,6 +3,7 @@ package com.deanhealthplan.memberinfo.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +19,28 @@ public class NetworkInfoImpl {
 
 	
 private static final Logger log = LogManager.getLogger(NetworkInfoImpl.class);
+
+//	@Value("${data.MTVUSER}")
+//	private String MTVUSER;
+//	@Value("${data.MTVPASSWORD}")
+//	private String MTVPASSWORD;
+//	@Value("${data.MTVHOST}")
+//	private String MTVHOST;
 	
 	@Autowired
-	MtvNetworkLookup mtvNetworkLookup;
+	MemberInfoProperties memberInfoProps;
+
 	@Autowired
-    private MemberInfoProperties mtvprops;
+	MtvNetworkLookup mtvNetworkLookup;
+
 	
 	@NewSpan("MtvNetworkLookupApiCall")
 	public Pmbr1dl4ListMemberNetworksTExport pmbr1dl4ListMemberNetworksT(String contractId, String memberId, String effDate, String endDate) throws IllegalArgumentException, CSUException, Exception  {
 		
 		Pmbr1dl4ListMemberNetworksTImport networkInfoImport = new Pmbr1dl4ListMemberNetworksTImport();
 		
-		networkInfoImport.getImportImbr1Interface().setRequestorId(mtvprops.getMtvUser());
-		networkInfoImport.getImportImbr1Interface().setRequestorPassword(mtvprops.getMtvPassword());
+		networkInfoImport.getImportImbr1Interface().setRequestorId(memberInfoProps.getMTVUSER());
+		networkInfoImport.getImportImbr1Interface().setRequestorPassword(memberInfoProps.getMTVPASSWORD());
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setContractId3(contractId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setMemberId(memberId);
 		networkInfoImport.getImportQualifyImbr1MemberProvAssociation().setTEffectiveDate(effDate);
